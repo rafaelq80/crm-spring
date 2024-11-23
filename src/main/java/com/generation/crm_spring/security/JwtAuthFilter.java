@@ -37,13 +37,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		String username = null;
 
 		try {
-			// Extrai o token e o username
+
 			if (authHeader != null && authHeader.startsWith("Bearer ")) {
 				token = authHeader.substring(7); // Remove o prefixo "Bearer "
 				username = jwtService.extractUsername(token);
 			}
 
-			// Valida o token e autentica o usuário
 			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
@@ -56,7 +55,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 				}
 			}
 
-			// Prossegue com o fluxo normal
+
 			filterChain.doFilter(request, response);
 
 		} catch (ExpiredJwtException e) {
@@ -74,9 +73,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		}
 	}
 
-	/**
-	 * Define o status de resposta como UNAUTHORIZED e loga o erro.
-	 */
 	private void logUnauthorizedAccess(HttpServletResponse response, String message, Exception e) {
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		System.err.println("Erro de autenticação: " + message);
