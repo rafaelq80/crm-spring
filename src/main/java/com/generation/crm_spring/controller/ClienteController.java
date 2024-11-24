@@ -44,7 +44,7 @@ public class ClienteController {
     }
     
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<Cliente>> getByTitle(@PathVariable 
+    public ResponseEntity<List<Cliente>> getByNome(@PathVariable 
     String nome){
         return ResponseEntity.ok(clienteRepository
             .findAllByNomeContainingIgnoreCase(nome));

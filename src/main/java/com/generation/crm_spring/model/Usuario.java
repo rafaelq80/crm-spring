@@ -3,6 +3,7 @@
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -31,6 +32,7 @@ public class Usuario {
 	@Email(message = "O Atributo Usuário deve ser um e-mail válido!")
 	private String usuario;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@NotBlank(message = "O Atributo Senha é Obrigatório!")
 	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
 	private String senha;
